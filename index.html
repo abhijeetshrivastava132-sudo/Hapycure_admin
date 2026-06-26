@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>HapyCure Admin</title>
 
   <style>
@@ -31,7 +32,8 @@
     }
 
     .sidebar {
-      width: 230px;
+      width: 112px;
+      height: 100vh;
       background: #fff;
       border-right: 1px solid #eee;
       display: flex;
@@ -40,52 +42,68 @@
     }
 
     .brand {
-      padding: 20px 16px 16px;
+      padding: 18px 10px 14px;
       display: flex;
-      align-items: center;
-      gap: 10px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 7px;
       border-bottom: 1px solid #f0f0f0;
+      text-align: left;
     }
 
     .brand-logo {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       background: #7f1d1d;
-      border-radius: 8px;
+      border-radius: 9px;
       color: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 15px;
       font-weight: 800;
-      flex-shrink: 0;
     }
 
     .brand-name {
-      font-size: 15px;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: -0.3px;
-      white-space: nowrap;
+      letter-spacing: -0.2px;
+      line-height: 1.2;
     }
 
     .nav {
       flex: 1;
-      padding: 12px 8px;
+      padding: 10px 8px;
+      overflow-y: auto;
     }
 
     .nav-btn {
       width: 100%;
-      padding: 10px 12px;
+      padding: 11px 10px;
       border: none;
-      border-radius: 8px;
+      border-radius: 11px;
       background: transparent;
       color: #6b7280;
-      font-size: 14px;
-      font-weight: 500;
       text-align: left;
       cursor: pointer;
-      margin-bottom: 4px;
-      transition: 0.15s;
+      margin-bottom: 6px;
+      transition: 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .nav-icon {
+      font-size: 18px;
+      line-height: 1;
+    }
+
+    .nav-label {
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.1;
+      text-align: left;
     }
 
     .nav-btn:hover {
@@ -96,7 +114,10 @@
     .nav-btn.active {
       background: #f3f4f6;
       color: #111;
-      font-weight: 700;
+    }
+
+    .nav-btn.active .nav-label {
+      font-weight: 800;
     }
 
     .main {
@@ -150,16 +171,12 @@
 
     .stat-sub {
       font-size: 12px;
-      color: #22863a;
+      color: #9ca3af;
       margin-top: 4px;
       font-weight: 500;
     }
 
-    .warning { color: #b45309; }
-    .danger { color: #dc2626; }
-
     .card,
-    .split-card,
     .details-panel {
       background: #fff;
       border: 1px solid #eee;
@@ -233,29 +250,20 @@
       white-space: nowrap;
     }
 
-    .pending,
-    .ontheway {
+    .pending {
       background: #fff8e6;
       color: #b45309;
     }
 
     .approved,
-    .active,
-    .delivered {
+    .active {
       background: #f0faf4;
       color: #22863a;
     }
 
-    .rejected,
-    .cancelled,
-    .suspended {
+    .rejected {
       background: #fff0f0;
       color: #dc2626;
-    }
-
-    .preparing {
-      background: #eff6ff;
-      color: #2563eb;
     }
 
     .btn {
@@ -280,31 +288,19 @@
       border: none;
     }
 
+    .btn-primary:hover,
+    .btn-red:hover {
+      background: #641717;
+    }
+
     .btn-green {
       background: #166534;
       color: #fff;
       border: none;
     }
 
-    .split {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .split-card {
-      flex: 1;
-      min-width: 280px;
-      padding: 24px;
-    }
-
-    .list-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 10px 0;
-      border-bottom: 1px solid #f9f9f9;
-      font-size: 14px;
+    .btn-green:hover {
+      background: #14532d;
     }
 
     .search-row {
@@ -327,6 +323,23 @@
 
     .search-input:focus {
       border-color: #7f1d1d;
+    }
+
+    .empty-state {
+      background: #fff;
+      border: 1px dashed #e5e7eb;
+      border-radius: 14px;
+      padding: 34px 20px;
+      text-align: center;
+      color: #9ca3af;
+      font-size: 14px;
+    }
+
+    .empty-title {
+      color: #111;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px;
     }
 
     .requests-layout {
@@ -403,38 +416,13 @@
       font-weight: 700;
     }
 
-    .bar-item { margin-bottom: 14px; }
-
-    .bar-top {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      color: #555;
-      margin-bottom: 5px;
+    .form {
+      max-width: 560px;
     }
 
-    .bar-value {
-      color: #111;
-      font-weight: 600;
+    .form-group {
+      margin-bottom: 20px;
     }
-
-    .bar-track {
-      background: #f3f4f6;
-      border-radius: 6px;
-      height: 8px;
-      overflow: hidden;
-    }
-
-    .bar-fill {
-      height: 8px;
-      border-radius: 6px;
-      background: #7f1d1d;
-      transition: 0.4s;
-    }
-
-    .form { max-width: 560px; }
-
-    .form-group { margin-bottom: 20px; }
 
     .form-label {
       display: block;
@@ -471,7 +459,9 @@
       transition: 0.2s;
     }
 
-    .switch.active { background: #7f1d1d; }
+    .switch.active {
+      background: #7f1d1d;
+    }
 
     .switch-dot {
       position: absolute;
@@ -485,43 +475,75 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
 
-    .switch.active .switch-dot { left: 21px; }
+    .switch.active .switch-dot {
+      left: 21px;
+    }
 
     @media (max-width: 760px) {
       .dashboard {
-        flex-direction: column;
+        flex-direction: row;
         height: 100vh;
       }
 
       .sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid #eee;
+        width: 96px;
+        height: 100vh;
+        border-right: 1px solid #eee;
+        border-bottom: none;
       }
 
       .brand {
-        padding: 14px 14px 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 14px 8px 12px;
+        text-align: left;
+      }
+
+      .brand-logo {
+        width: 32px;
+        height: 32px;
+      }
+
+      .brand-name {
+        font-size: 11px;
+        line-height: 1.2;
       }
 
       .nav {
-        display: flex;
-        gap: 8px;
-        overflow-x: auto;
-        padding: 8px 14px 12px;
-        flex: none;
+        display: block;
+        padding: 10px 7px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        flex: 1;
       }
 
       .nav-btn {
-        width: auto;
-        flex: 0 0 auto;
-        margin-bottom: 0;
-        white-space: nowrap;
-        padding: 8px 12px;
-        border: 1px solid #eee;
+        width: 100%;
+        flex: none;
+        margin-bottom: 6px;
+        padding: 10px 8px;
+        border: none;
+        align-items: flex-start;
+        text-align: left;
+      }
+
+      .nav-icon {
+        font-size: 17px;
+      }
+
+      .nav-label {
+        font-size: 10.5px;
+        line-height: 1.1;
       }
 
       .main {
-        padding: 18px 14px;
+        flex: 1;
+        padding: 18px 12px;
+        overflow: auto;
+      }
+
+      .page-title {
+        font-size: 20px;
       }
 
       .stat-card {
@@ -561,39 +583,22 @@
 
   <script>
     const NAV = [
-      { id: "overview", label: "Dashboard" },
-      { id: "requests", label: "Kitchen Requests" },
-      { id: "kitchens", label: "Approved Kitchens" },
-      { id: "orders", label: "Orders" },
-      { id: "customers", label: "Customers" },
-      { id: "analytics", label: "Analytics" },
-      { id: "settings", label: "Settings" }
+      { id: "overview", label: "Dashboard", icon: "▦" },
+      { id: "requests", label: "Requests", icon: "◫" },
+      { id: "kitchens", label: "Kitchens", icon: "⌂" },
+      { id: "orders", label: "Orders", icon: "▤" },
+      { id: "customers", label: "Customers", icon: "○" },
+      { id: "analytics", label: "Analytics", icon: "▥" },
+      { id: "settings", label: "Settings", icon: "⚙" }
     ];
 
     let activePage = "overview";
-    let selectedKitchenId = "K-1024";
+    let selectedKitchenId = null;
     let maintenanceMode = false;
 
-    let kitchenRequests = [
-      { id: "K-1024", kitchenName: "Annapurna Home Kitchen", owner: "Priya Singh", phone: "+91 98765 43210", email: "priya@hapycure.com", city: "Patna", address: "Boring Road, Patna", foodType: "Pure Veg", meals: "Lunch, Dinner", timing: "11:00 AM - 9:00 PM", price: "₹90 - ₹140", documents: "FSSAI Applied", status: "Pending" },
-      { id: "K-1023", kitchenName: "Maa Tiffin Service", owner: "Neha Kumari", phone: "+91 91234 56780", email: "neha@hapycure.com", city: "Siwan", address: "Station Road, Siwan", foodType: "Veg + Egg", meals: "Breakfast, Lunch", timing: "8:00 AM - 2:00 PM", price: "₹70 - ₹120", documents: "Aadhaar Verified", status: "Pending" },
-      { id: "K-1022", kitchenName: "Healthy Bowl Kitchen", owner: "Rahul Verma", phone: "+91 99887 76655", email: "rahul@hapycure.com", city: "Patna", address: "Kankarbagh, Patna", foodType: "Veg + Non-Veg", meals: "Lunch, Dinner", timing: "12:00 PM - 10:00 PM", price: "₹120 - ₹180", documents: "FSSAI Verified", status: "Approved" },
-      { id: "K-1021", kitchenName: "Ghar Ka Khana", owner: "Aarti Sharma", phone: "+91 90000 11122", email: "aarti@hapycure.com", city: "Muzaffarpur", address: "Mithanpura, Muzaffarpur", foodType: "Pure Veg", meals: "Lunch", timing: "10:30 AM - 3:00 PM", price: "₹80 - ₹110", documents: "Incomplete", status: "Rejected" }
-    ];
-
-    const orders = [
-      { id: "#HC-5821", customer: "Aman Raj", kitchen: "Healthy Bowl Kitchen", meal: "Lunch Thali", status: "Delivered", total: "₹130", time: "24 min" },
-      { id: "#HC-5820", customer: "Riya Sharma", kitchen: "Annapurna Home Kitchen", meal: "Veg Dinner Box", status: "Preparing", total: "₹110", time: "18 min" },
-      { id: "#HC-5819", customer: "Sahil Khan", kitchen: "Maa Tiffin Service", meal: "Breakfast Box", status: "On the way", total: "₹90", time: "12 min" },
-      { id: "#HC-5818", customer: "Nora Patel", kitchen: "Healthy Bowl Kitchen", meal: "Protein Meal", status: "Cancelled", total: "₹160", time: "—" }
-    ];
-
-    const customers = [
-      { name: "Aman Raj", email: "aman@mail.com", joined: "Jan 2026", orders: 22, spent: "₹2,860", status: "Active" },
-      { name: "Riya Sharma", email: "riya@mail.com", joined: "Feb 2026", orders: 14, spent: "₹1,720", status: "Active" },
-      { name: "Sahil Khan", email: "sahil@mail.com", joined: "Mar 2026", orders: 8, spent: "₹940", status: "Active" },
-      { name: "Nora Patel", email: "nora@mail.com", joined: "Apr 2026", orders: 3, spent: "₹360", status: "Suspended" }
-    ];
+    let kitchenRequests = [];
+    let orders = [];
+    let customers = [];
 
     const main = document.getElementById("main");
     const nav = document.getElementById("nav");
@@ -606,37 +611,25 @@
       return `<span class="badge ${statusClass(status)}">${status}</span>`;
     }
 
-    function count(status) {
+    function countKitchenStatus(status) {
       return kitchenRequests.filter(item => item.status === status).length;
     }
 
-    function stat(label, value, sub, type = "") {
+    function stat(label, value, sub = "") {
       return `
         <div class="stat-card">
           <div class="stat-label">${label}</div>
           <div class="stat-value">${value}</div>
-          ${sub ? `<div class="stat-sub ${type}">${sub}</div>` : ""}
+          ${sub ? `<div class="stat-sub">${sub}</div>` : ""}
         </div>
       `;
     }
 
-    function money(value) {
-      return Number(String(value).replace(/[^0-9]/g, ""));
-    }
-
-    function bar(label, value, max, color = "#7f1d1d") {
-      const number = typeof value === "number" ? value : money(value);
-      const width = Math.min((number / max) * 100, 100);
-
+    function emptyState(title, text) {
       return `
-        <div class="bar-item">
-          <div class="bar-top">
-            <span>${label}</span>
-            <span class="bar-value">${value}</span>
-          </div>
-          <div class="bar-track">
-            <div class="bar-fill" style="width:${width}%;background:${color}"></div>
-          </div>
+        <div class="empty-state">
+          <div class="empty-title">${title}</div>
+          <div>${text}</div>
         </div>
       `;
     }
@@ -645,7 +638,7 @@
       return `
         <div class="info-row">
           <span class="info-label">${label}</span>
-          <span class="info-value">${value}</span>
+          <span class="info-value">${value || "—"}</span>
         </div>
       `;
     }
@@ -653,73 +646,32 @@
     function renderNav() {
       nav.innerHTML = NAV.map(item => `
         <button class="nav-btn ${activePage === item.id ? "active" : ""}" data-page="${item.id}">
-          ${item.label}
+          <span class="nav-icon">${item.icon}</span>
+          <span class="nav-label">${item.label}</span>
         </button>
       `).join("");
     }
 
     function renderOverview() {
       main.innerHTML = `
-        <h1 class="page-title">Good morning</h1>
-        <p class="page-subtitle">Here's what's happening with HapyCure today.</p>
+        <h1 class="page-title">Dashboard</h1>
+        <p class="page-subtitle">HapyCure admin overview.</p>
 
         <div class="stats-grid">
-          ${stat("Pending Kitchens", count("Pending"), "Needs review", "warning")}
-          ${stat("Approved Kitchens", count("Approved"), "Ready to accept orders")}
-          ${stat("Rejected Requests", count("Rejected"), "Incomplete or invalid", "danger")}
-          ${stat("Orders Today", "124", "↑ 9% from yesterday")}
+          ${stat("Pending Requests", countKitchenStatus("Pending"), "Waiting for review")}
+          ${stat("Approved Kitchens", countKitchenStatus("Approved"), "Ready kitchens")}
+          ${stat("Rejected Requests", countKitchenStatus("Rejected"), "Rejected applications")}
+          ${stat("Orders Today", orders.length, "Total orders")}
         </div>
 
         <div class="card">
           <div class="card-title">Latest Kitchen Requests</div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Kitchen</th>
-                  <th>Owner</th>
-                  <th>City</th>
-                  <th>Food Type</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${kitchenRequests.map(item => `
-                  <tr>
-                    <td class="strong">${item.kitchenName}</td>
-                    <td>${item.owner}</td>
-                    <td>${item.city}</td>
-                    <td>${item.foodType}</td>
-                    <td>${badge(item.status)}</td>
-                    <td><button class="btn" data-review="${item.id}">Review</button></td>
-                  </tr>
-                `).join("")}
-              </tbody>
-            </table>
-          </div>
+          ${emptyState("No kitchen requests yet", "New kitchen requests will appear here.")}
         </div>
 
-        <div class="split">
-          <div class="split-card">
-            <div class="card-title">Active Kitchens</div>
-            ${kitchenRequests.filter(item => item.status === "Approved").map(item => `
-              <div class="list-row">
-                <span>${item.kitchenName}</span>
-                <strong>${item.city}</strong>
-              </div>
-            `).join("") || `<p style="font-size:14px;color:#9ca3af">No approved kitchens yet.</p>`}
-          </div>
-
-          <div class="split-card">
-            <div class="card-title">Recent Orders</div>
-            ${orders.map(item => `
-              <div class="list-row">
-                <span>${item.id}</span>
-                <span><strong>${item.total}</strong> ${badge(item.status)}</span>
-              </div>
-            `).join("")}
-          </div>
+        <div class="card">
+          <div class="card-title">Recent Orders</div>
+          ${emptyState("No orders yet", "Customer orders will appear here.")}
         </div>
       `;
     }
@@ -727,226 +679,264 @@
     function renderRequests(query = "") {
       const filtered = kitchenRequests.filter(item => {
         const q = query.toLowerCase();
-        return item.kitchenName.toLowerCase().includes(q) || item.owner.toLowerCase().includes(q) || item.city.toLowerCase().includes(q) || item.id.toLowerCase().includes(q);
+
+        return (
+          item.kitchenName?.toLowerCase().includes(q) ||
+          item.owner?.toLowerCase().includes(q) ||
+          item.city?.toLowerCase().includes(q) ||
+          item.id?.toLowerCase().includes(q)
+        );
       });
 
-      const selected = kitchenRequests.find(item => item.id === selectedKitchenId) || kitchenRequests[0];
+      const selected = kitchenRequests.find(item => item.id === selectedKitchenId);
 
       main.innerHTML = `
         <h1 class="page-title" style="margin-bottom:20px">Kitchen Requests</h1>
+
         <div class="requests-layout">
           <div class="requests-table">
             <div class="search-row">
-              <input class="search-input" id="requestSearch" value="${query}" placeholder="Search by kitchen, owner, city, ID...">
+              <input
+                class="search-input"
+                id="requestSearch"
+                value="${query}"
+                placeholder="Search requests..."
+              />
             </div>
 
-            <div class="table-card">
-              <div class="table-wrap">
-                <table>
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Kitchen</th>
-                      <th>Owner</th>
-                      <th>City</th>
-                      <th>Status</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    ${filtered.map(item => `
-                      <tr data-select="${item.id}" style="cursor:pointer">
-                        <td class="strong">${item.id}</td>
-                        <td class="strong">${item.kitchenName}</td>
-                        <td>${item.owner}</td>
-                        <td>${item.city}</td>
-                        <td>${badge(item.status)}</td>
-                        <td>View</td>
-                      </tr>
-                    `).join("")}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+            ${
+              filtered.length
+                ? `
+                  <div class="table-card">
+                    <div class="table-wrap">
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>Kitchen</th>
+                            <th>Owner</th>
+                            <th>City</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          ${filtered.map(item => `
+                            <tr data-select="${item.id}" style="cursor:pointer">
+                              <td class="strong">${item.id}</td>
+                              <td class="strong">${item.kitchenName || "—"}</td>
+                              <td>${item.owner || "—"}</td>
+                              <td>${item.city || "—"}</td>
+                              <td>${badge(item.status || "Pending")}</td>
+                              <td>View</td>
+                            </tr>
+                          `).join("")}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                `
+                : emptyState("No requests yet", "Kitchen approval requests will appear here.")
+            }
           </div>
 
           <div class="details-panel">
-            <div class="details-head">
-              <div>
-                <h2 class="details-title">${selected.kitchenName}</h2>
-                <p class="details-id">${selected.id}</p>
-              </div>
-              ${badge(selected.status)}
-            </div>
+            ${
+              selected
+                ? `
+                  <div class="details-head">
+                    <div>
+                      <h2 class="details-title">${selected.kitchenName || "Kitchen Details"}</h2>
+                      <p class="details-id">${selected.id || "—"}</p>
+                    </div>
+                    ${badge(selected.status || "Pending")}
+                  </div>
 
-            ${info("Owner", selected.owner)}
-            ${info("Phone", selected.phone)}
-            ${info("Email", selected.email)}
-            ${info("City", selected.city)}
-            ${info("Address", selected.address)}
-            ${info("Food Type", selected.foodType)}
-            ${info("Meals", selected.meals)}
-            ${info("Timing", selected.timing)}
-            ${info("Price Range", selected.price)}
-            ${info("Documents", selected.documents)}
+                  ${info("Owner", selected.owner)}
+                  ${info("Phone", selected.phone)}
+                  ${info("Email", selected.email)}
+                  ${info("City", selected.city)}
+                  ${info("Address", selected.address)}
+                  ${info("Food Type", selected.foodType)}
+                  ${info("Meals", selected.meals)}
+                  ${info("Timing", selected.timing)}
+                  ${info("Price Range", selected.price)}
+                  ${info("Documents", selected.documents)}
 
-            <div class="action-row">
-              <button class="btn btn-green" data-approve="${selected.id}">Approve</button>
-              <button class="btn btn-red" data-reject="${selected.id}">Reject</button>
-            </div>
+                  <div class="action-row">
+                    <button class="btn btn-green" data-approve="${selected.id}">Approve</button>
+                    <button class="btn btn-red" data-reject="${selected.id}">Reject</button>
+                  </div>
+                `
+                : emptyState("No request selected", "Select a request to view full details.")
+            }
           </div>
         </div>
       `;
 
       const input = document.getElementById("requestSearch");
+
       input.addEventListener("input", function () {
         renderRequests(this.value);
       });
+
       input.focus();
       input.setSelectionRange(input.value.length, input.value.length);
     }
 
     function renderKitchens() {
       const approved = kitchenRequests.filter(item => item.status === "Approved");
+
       main.innerHTML = `
         <h1 class="page-title" style="margin-bottom:20px">Approved Kitchens</h1>
-        <div class="table-card">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Kitchen</th>
-                  <th>Owner</th>
-                  <th>City</th>
-                  <th>Food Type</th>
-                  <th>Meals</th>
-                  <th>Price</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${approved.map(item => `
-                  <tr>
-                    <td class="strong">${item.kitchenName}</td>
-                    <td>${item.owner}</td>
-                    <td>${item.city}</td>
-                    <td>${item.foodType}</td>
-                    <td>${item.meals}</td>
-                    <td class="strong">${item.price}</td>
-                    <td>${badge(item.status)}</td>
-                  </tr>
-                `).join("")}
-              </tbody>
-            </table>
-          </div>
-        </div>
+
+        ${
+          approved.length
+            ? `
+              <div class="table-card">
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Kitchen</th>
+                        <th>Owner</th>
+                        <th>City</th>
+                        <th>Food Type</th>
+                        <th>Meals</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      ${approved.map(item => `
+                        <tr>
+                          <td class="strong">${item.kitchenName || "—"}</td>
+                          <td>${item.owner || "—"}</td>
+                          <td>${item.city || "—"}</td>
+                          <td>${item.foodType || "—"}</td>
+                          <td>${item.meals || "—"}</td>
+                          <td class="strong">${item.price || "—"}</td>
+                          <td>${badge(item.status || "Approved")}</td>
+                        </tr>
+                      `).join("")}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            `
+            : emptyState("No approved kitchens yet", "Approved kitchens will appear here.")
+        }
       `;
     }
 
     function renderOrders() {
       main.innerHTML = `
-        <h1 class="page-title" style="margin-bottom:20px">Orders Management</h1>
-        <div class="table-card">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Order</th>
-                  <th>Customer</th>
-                  <th>Kitchen</th>
-                  <th>Meal</th>
-                  <th>Status</th>
-                  <th>Total</th>
-                  <th>Time</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${orders.map(item => `
-                  <tr>
-                    <td class="strong">${item.id}</td>
-                    <td>${item.customer}</td>
-                    <td>${item.kitchen}</td>
-                    <td>${item.meal}</td>
-                    <td>${badge(item.status)}</td>
-                    <td class="strong">${item.total}</td>
-                    <td>${item.time}</td>
-                  </tr>
-                `).join("")}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <h1 class="page-title" style="margin-bottom:20px">Orders</h1>
+
+        ${
+          orders.length
+            ? `
+              <div class="table-card">
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Order</th>
+                        <th>Customer</th>
+                        <th>Kitchen</th>
+                        <th>Meal</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Time</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      ${orders.map(item => `
+                        <tr>
+                          <td class="strong">${item.id || "—"}</td>
+                          <td>${item.customer || "—"}</td>
+                          <td>${item.kitchen || "—"}</td>
+                          <td>${item.meal || "—"}</td>
+                          <td>${badge(item.status || "Pending")}</td>
+                          <td class="strong">${item.total || "—"}</td>
+                          <td>${item.time || "—"}</td>
+                        </tr>
+                      `).join("")}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            `
+            : emptyState("No orders yet", "Orders will appear here after users place them.")
+        }
       `;
     }
 
     function renderCustomers() {
       main.innerHTML = `
         <h1 class="page-title" style="margin-bottom:20px">Customers</h1>
+
         <div class="stats-grid">
-          ${stat("Total Customers", "1,248", "↑ 6% this month")}
-          ${stat("Active This Week", "342", "ordering users")}
-          ${stat("Avg. Order Value", "₹124", "↑ ₹9 vs last week")}
+          ${stat("Total Customers", customers.length)}
+          ${stat("Active Customers", 0)}
+          ${stat("Average Order Value", "₹0")}
         </div>
 
-        <div class="table-card">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Joined</th>
-                  <th>Orders</th>
-                  <th>Spent</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${customers.map(item => `
-                  <tr>
-                    <td class="strong">${item.name}</td>
-                    <td>${item.email}</td>
-                    <td>${item.joined}</td>
-                    <td>${item.orders}</td>
-                    <td class="strong">${item.spent}</td>
-                    <td>${badge(item.status)}</td>
-                  </tr>
-                `).join("")}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        ${
+          customers.length
+            ? `
+              <div class="table-card">
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Joined</th>
+                        <th>Orders</th>
+                        <th>Spent</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      ${customers.map(item => `
+                        <tr>
+                          <td class="strong">${item.name || "—"}</td>
+                          <td>${item.email || "—"}</td>
+                          <td>${item.joined || "—"}</td>
+                          <td>${item.orders || 0}</td>
+                          <td class="strong">${item.spent || "₹0"}</td>
+                          <td>${badge(item.status || "Active")}</td>
+                        </tr>
+                      `).join("")}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            `
+            : emptyState("No customers yet", "Registered customers will appear here.")
+        }
       `;
     }
 
     function renderAnalytics() {
       main.innerHTML = `
-        <h1 class="page-title" style="margin-bottom:20px">Analytics & Revenue</h1>
+        <h1 class="page-title" style="margin-bottom:20px">Analytics</h1>
+
         <div class="stats-grid">
-          ${stat("Revenue This Month", "₹84,320", "↑ 14% vs last month")}
-          ${stat("Orders This Month", "682", "↑ 9% vs last month")}
-          ${stat("Avg. Meal Price", "₹118", "stable")}
-          ${stat("Repeat Customers", "61%", "↑ 3% vs last month")}
+          ${stat("Revenue", "₹0")}
+          ${stat("Orders", orders.length)}
+          ${stat("Customers", customers.length)}
+          ${stat("Approved Kitchens", countKitchenStatus("Approved"))}
         </div>
 
-        <div class="split">
-          <div class="split-card">
-            <div class="card-title">Revenue by Day</div>
-            ${bar("Mon", "₹9,200", 20000)}
-            ${bar("Tue", "₹11,400", 20000)}
-            ${bar("Wed", "₹8,700", 20000)}
-            ${bar("Thu", "₹13,100", 20000)}
-            ${bar("Fri", "₹15,800", 20000)}
-            ${bar("Sat", "₹18,200", 20000)}
-            ${bar("Sun", "₹7,900", 20000)}
-          </div>
-
-          <div class="split-card">
-            <div class="card-title">Kitchen Request Status</div>
-            ${bar("Pending", count("Pending"), 10, "#b45309")}
-            ${bar("Approved", count("Approved"), 10, "#166534")}
-            ${bar("Rejected", count("Rejected"), 10, "#7f1d1d")}
-          </div>
+        <div class="card">
+          <div class="card-title">Analytics Data</div>
+          ${emptyState("No analytics data yet", "Real analytics will appear after orders and customers are added.")}
         </div>
       `;
     }
@@ -958,23 +948,24 @@
 
           <div class="form-group">
             <label class="form-label">App Name</label>
-            <input class="form-input" value="HapyCure">
+            <input class="form-input" value="HapyCure" />
           </div>
 
           <div class="form-group">
             <label class="form-label">Support Email</label>
-            <input class="form-input" value="support@hapycure.com">
+            <input class="form-input" placeholder="Enter support email" />
           </div>
 
           <div class="form-group">
             <label class="form-label">Primary City</label>
-            <input class="form-input" value="Patna">
+            <input class="form-input" placeholder="Enter primary city" />
           </div>
 
           <div class="switch-row">
             <div class="switch ${maintenanceMode ? "active" : ""}" id="maintenanceSwitch">
               <div class="switch-dot"></div>
             </div>
+
             <span style="font-size:14px;font-weight:500">Maintenance Mode</span>
             ${maintenanceMode ? badge("Active") : ""}
           </div>
@@ -997,19 +988,26 @@
     }
 
     function approve(id) {
-      kitchenRequests = kitchenRequests.map(item => item.id === id ? { ...item, status: "Approved" } : item);
+      kitchenRequests = kitchenRequests.map(item =>
+        item.id === id ? { ...item, status: "Approved" } : item
+      );
+
       selectedKitchenId = id;
       renderRequests();
     }
 
     function reject(id) {
-      kitchenRequests = kitchenRequests.map(item => item.id === id ? { ...item, status: "Rejected" } : item);
+      kitchenRequests = kitchenRequests.map(item =>
+        item.id === id ? { ...item, status: "Rejected" } : item
+      );
+
       selectedKitchenId = id;
       renderRequests();
     }
 
     nav.addEventListener("click", event => {
       const button = event.target.closest("[data-page]");
+
       if (!button) return;
 
       activePage = button.dataset.page;
@@ -1017,17 +1015,10 @@
     });
 
     document.addEventListener("click", event => {
-      const review = event.target.closest("[data-review]");
       const row = event.target.closest("[data-select]");
       const approveButton = event.target.closest("[data-approve]");
       const rejectButton = event.target.closest("[data-reject]");
       const switchButton = event.target.closest("#maintenanceSwitch");
-
-      if (review) {
-        selectedKitchenId = review.dataset.review;
-        activePage = "requests";
-        renderPage();
-      }
 
       if (row) {
         selectedKitchenId = row.dataset.select;
