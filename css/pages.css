@@ -1,0 +1,181 @@
+.requests-layout {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.requests-table {
+  flex: 1.4;
+  min-width: 520px;
+}
+
+.details-panel {
+  flex: 1;
+  min-width: 340px;
+  padding: 24px;
+  position: sticky;
+  top: 24px;
+}
+
+.details-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.details-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  letter-spacing: -0.3px;
+}
+
+.details-id {
+  margin: 0;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 11px 0;
+  border-bottom: 1px solid #f3f4f6;
+  font-size: 14px;
+}
+
+.info-label {
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.info-value {
+  color: #111;
+  font-weight: 600;
+  text-align: right;
+  word-break: break-word;
+}
+
+.section-title {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #111;
+}
+
+.food-item,
+.file-item {
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.food-name {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.food-meta {
+  color: #6b7280;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.file-link {
+  color: #7f1d1d;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.food-photo {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-top: 10px;
+  border: 1px solid #eee;
+}
+
+.action-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.action-row button {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.form {
+  max-width: 560px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+  outline: none;
+  background: #fff;
+}
+
+.switch-row {
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.switch {
+  width: 42px;
+  height: 24px;
+  border-radius: 12px;
+  background: #e5e7eb;
+  cursor: pointer;
+  position: relative;
+  transition: 0.2s;
+}
+
+.switch.active {
+  background: #7f1d1d;
+}
+
+.switch-dot {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  transition: 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.switch.active .switch-dot {
+  left: 21px;
+}
