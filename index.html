@@ -4,39 +4,1045 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HapyCure Admin</title>
+
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,"Segoe UI",Arial,sans-serif}body{background:#f8f9fa;color:#111}.dashboard{display:flex;height:100vh;background:#f8f9fa;overflow:hidden}.sidebar{width:220px;background:#fff;border-right:1px solid #eee;display:flex;flex-direction:column;transition:.2s;overflow:hidden;flex-shrink:0}.sidebar.collapsed{width:64px}.brand{padding:20px 16px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #f0f0f0}.brand-logo{width:32px;height:32px;background:#7f1d1d;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px;font-weight:800;flex-shrink:0}.brand-name{font-weight:700;font-size:15px;letter-spacing:-.3px;white-space:nowrap}.sidebar.collapsed .brand-name,.sidebar.collapsed .nav-label,.sidebar.collapsed .toggle-text{display:none}.nav{flex:1;padding:12px 8px}.nav-btn{display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;border-radius:8px;border:none;cursor:pointer;background:transparent;color:#6b7280;font-weight:400;font-size:14px;text-align:left;transition:.15s;margin-bottom:2px}.nav-btn:hover{background:#fafafa;color:#111}.nav-btn.active{background:#f3f4f6;color:#111;font-weight:600}.nav-icon{font-size:16px;width:20px;text-align:center;flex-shrink:0}.sidebar-toggle{margin:12px 8px;padding:8px;border-radius:8px;border:1px solid #eee;background:#fff;cursor:pointer;color:#9ca3af;font-size:14px}.main{flex:1;overflow:auto;padding:28px 32px}.page-title{font-size:22px;font-weight:700;margin-bottom:4px;letter-spacing:-.5px}.page-subtitle{color:#9ca3af;font-size:14px;margin-bottom:28px}.stats-grid{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:28px}.stat-card{background:#fff;border:1px solid #eee;border-radius:14px;padding:22px 26px;flex:1;min-width:160px}.stat-label{font-size:13px;color:#9ca3af;font-weight:500;margin-bottom:6px}.stat-value{font-size:28px;font-weight:700;color:#111;letter-spacing:-1px}.stat-sub{font-size:12px;color:#22863a;margin-top:4px;font-weight:500}.warning{color:#b45309}.danger{color:#dc2626}.card,.split-card,.details-panel{background:#fff;border:1px solid #eee;border-radius:14px}.card{padding:24px;margin-bottom:24px}.card-title{font-weight:600;font-size:15px;margin-bottom:18px}.table-card{background:#fff;border:1px solid #eee;border-radius:14px;overflow:hidden}.table-wrap{width:100%;overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:760px}th{text-align:left;padding:10px 14px;font-size:12px;font-weight:600;color:#9ca3af;border-bottom:1px solid #f0f0f0;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}td{padding:13px 14px;font-size:14px;color:#374151;border-bottom:1px solid #f9f9f9;white-space:nowrap}tr:hover{background:#fafafa}.strong{font-weight:600;color:#111}.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap}.pending,.ontheway{background:#fff8e6;color:#b45309}.approved,.active,.delivered{background:#f0faf4;color:#22863a}.rejected,.cancelled,.suspended{background:#fff0f0;color:#dc2626}.preparing{background:#eff6ff;color:#2563eb}.btn{padding:8px 14px;border-radius:8px;border:1px solid #eee;background:#fff;color:#111;font-size:13px;font-weight:600;cursor:pointer}.btn:hover{background:#f9fafb}.btn-primary,.btn-red{background:#7f1d1d;color:#fff;border:none}.btn-primary:hover,.btn-red:hover{background:#641717}.btn-green{background:#166534;color:#fff;border:none}.btn-green:hover{background:#14532d}.split{display:flex;gap:16px;flex-wrap:wrap}.split-card{flex:1;min-width:280px;padding:24px}.list-row{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid #f9f9f9;font-size:14px}.search-row{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}.search-input{flex:1;min-width:220px;padding:9px 14px;border-radius:8px;border:1px solid #e5e7eb;font-size:14px;outline:none;background:#fff}.search-input:focus{border-color:#7f1d1d}.requests-layout{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}.requests-table{flex:1.4;min-width:520px}.details-panel{flex:1;min-width:340px;padding:24px;position:sticky;top:24px}.details-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:18px}.details-title{font-size:18px;font-weight:700;margin:0 0 4px;letter-spacing:-.3px}.details-id{margin:0;font-size:13px;color:#9ca3af}.info-row{display:flex;justify-content:space-between;gap:18px;padding:11px 0;border-bottom:1px solid #f3f4f6;font-size:14px}.info-label{color:#9ca3af;font-weight:500}.info-value{color:#111;font-weight:600;text-align:right}.action-row{display:flex;gap:10px;margin-top:24px}.action-row button{flex:1;padding:10px 16px;font-size:14px;font-weight:700}.bar-item{margin-bottom:14px}.bar-top{display:flex;justify-content:space-between;font-size:13px;color:#555;margin-bottom:5px}.bar-value{font-weight:600;color:#111}.bar-track{background:#f3f4f6;border-radius:6px;height:8px;overflow:hidden}.bar-fill{height:8px;border-radius:6px;background:#7f1d1d;transition:.4s}.form{max-width:560px}.form-group{margin-bottom:20px}.form-label{display:block;font-size:13px;font-weight:600;color:#374151;margin-bottom:6px}.form-input{width:100%;padding:10px 14px;border-radius:8px;border:1px solid #e5e7eb;font-size:14px;outline:none;background:#fff}.switch-row{margin-bottom:28px;display:flex;align-items:center;gap:12px}.switch{width:42px;height:24px;border-radius:12px;background:#e5e7eb;cursor:pointer;position:relative;transition:.2s}.switch.active{background:#7f1d1d}.switch-dot{position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}.switch.active .switch-dot{left:21px}@media(max-width:760px){.sidebar{width:64px}.sidebar .brand-name,.sidebar .nav-label,.sidebar .toggle-text{display:none}.main{padding:20px 14px}.stat-card{min-width:140px;padding:18px}.requests-table,.details-panel{min-width:100%}.details-panel{position:static}table{min-width:720px}}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+    }
+
+    body {
+      background: #f8f9fa;
+      color: #111;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    .dashboard {
+      display: flex;
+      height: 100vh;
+      background: #f8f9fa;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 230px;
+      background: #fff;
+      border-right: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .brand {
+      padding: 20px 16px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      background: #7f1d1d;
+      border-radius: 8px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+    }
+
+    .nav {
+      flex: 1;
+      padding: 12px 8px;
+    }
+
+    .nav-btn {
+      width: 100%;
+      padding: 10px 12px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: #6b7280;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      margin-bottom: 4px;
+      transition: 0.15s;
+    }
+
+    .nav-btn:hover {
+      background: #fafafa;
+      color: #111;
+    }
+
+    .nav-btn.active {
+      background: #f3f4f6;
+      color: #111;
+      font-weight: 700;
+    }
+
+    .main {
+      flex: 1;
+      overflow: auto;
+      padding: 28px 32px;
+    }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .page-subtitle {
+      color: #9ca3af;
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .stats-grid {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 14px;
+      padding: 22px 26px;
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: #9ca3af;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #111;
+      letter-spacing: -1px;
+    }
+
+    .stat-sub {
+      font-size: 12px;
+      color: #22863a;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .warning { color: #b45309; }
+    .danger { color: #dc2626; }
+
+    .card,
+    .split-card,
+    .details-panel {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 14px;
+    }
+
+    .card {
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .table-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #9ca3af;
+      border-bottom: 1px solid #f0f0f0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 13px 14px;
+      font-size: 14px;
+      color: #374151;
+      border-bottom: 1px solid #f9f9f9;
+      white-space: nowrap;
+    }
+
+    tr:hover {
+      background: #fafafa;
+    }
+
+    .strong {
+      color: #111;
+      font-weight: 600;
+    }
+
+    .badge {
+      display: inline-flex;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .pending,
+    .ontheway {
+      background: #fff8e6;
+      color: #b45309;
+    }
+
+    .approved,
+    .active,
+    .delivered {
+      background: #f0faf4;
+      color: #22863a;
+    }
+
+    .rejected,
+    .cancelled,
+    .suspended {
+      background: #fff0f0;
+      color: #dc2626;
+    }
+
+    .preparing {
+      background: #eff6ff;
+      color: #2563eb;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid #eee;
+      background: #fff;
+      color: #111;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #f9fafb;
+    }
+
+    .btn-primary,
+    .btn-red {
+      background: #7f1d1d;
+      color: #fff;
+      border: none;
+    }
+
+    .btn-green {
+      background: #166534;
+      color: #fff;
+      border: none;
+    }
+
+    .split {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .split-card {
+      flex: 1;
+      min-width: 280px;
+      padding: 24px;
+    }
+
+    .list-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f9f9f9;
+      font-size: 14px;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 220px;
+      padding: 9px 14px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      font-size: 14px;
+      outline: none;
+      background: #fff;
+    }
+
+    .search-input:focus {
+      border-color: #7f1d1d;
+    }
+
+    .requests-layout {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .requests-table {
+      flex: 1.4;
+      min-width: 520px;
+    }
+
+    .details-panel {
+      flex: 1;
+      min-width: 340px;
+      padding: 24px;
+      position: sticky;
+      top: 24px;
+    }
+
+    .details-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .details-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin: 0 0 4px;
+      letter-spacing: -0.3px;
+    }
+
+    .details-id {
+      margin: 0;
+      font-size: 13px;
+      color: #9ca3af;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 11px 0;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 14px;
+    }
+
+    .info-label {
+      color: #9ca3af;
+      font-weight: 500;
+    }
+
+    .info-value {
+      color: #111;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .action-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .action-row button {
+      flex: 1;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .bar-item { margin-bottom: 14px; }
+
+    .bar-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    .bar-value {
+      color: #111;
+      font-weight: 600;
+    }
+
+    .bar-track {
+      background: #f3f4f6;
+      border-radius: 6px;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 8px;
+      border-radius: 6px;
+      background: #7f1d1d;
+      transition: 0.4s;
+    }
+
+    .form { max-width: 560px; }
+
+    .form-group { margin-bottom: 20px; }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+      font-size: 14px;
+      outline: none;
+      background: #fff;
+    }
+
+    .switch-row {
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .switch {
+      width: 42px;
+      height: 24px;
+      border-radius: 12px;
+      background: #e5e7eb;
+      cursor: pointer;
+      position: relative;
+      transition: 0.2s;
+    }
+
+    .switch.active { background: #7f1d1d; }
+
+    .switch-dot {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      transition: 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .switch.active .switch-dot { left: 21px; }
+
+    @media (max-width: 760px) {
+      .dashboard {
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+      }
+
+      .brand {
+        padding: 14px 14px 10px;
+      }
+
+      .nav {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 8px 14px 12px;
+        flex: none;
+      }
+
+      .nav-btn {
+        width: auto;
+        flex: 0 0 auto;
+        margin-bottom: 0;
+        white-space: nowrap;
+        padding: 8px 12px;
+        border: 1px solid #eee;
+      }
+
+      .main {
+        padding: 18px 14px;
+      }
+
+      .stat-card {
+        min-width: 140px;
+        padding: 18px;
+      }
+
+      .requests-table,
+      .details-panel {
+        min-width: 100%;
+      }
+
+      .details-panel {
+        position: static;
+      }
+
+      table {
+        min-width: 720px;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="dashboard">
-    <aside class="sidebar collapsed" id="sidebar">
-      <div class="brand"><div class="brand-logo">H</div><div class="brand-name">HapyCure Admin</div></div>
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-logo">H</div>
+        <div class="brand-name">HapyCure Admin</div>
+      </div>
+
       <nav class="nav" id="nav"></nav>
-      <button class="sidebar-toggle" id="sidebarToggle"><span id="toggleIcon">▸</span><span class="toggle-text"> Open</span></button>
     </aside>
+
     <main class="main" id="main"></main>
   </div>
 
   <script>
-    const NAV=[{id:"overview",label:"Overview",icon:"▦"},{id:"requests",label:"Kitchen Requests",icon:"◫"},{id:"kitchens",label:"Approved Kitchens",icon:"⌂"},{id:"orders",label:"Orders",icon:"▤"},{id:"customers",label:"Customers",icon:"○"},{id:"analytics",label:"Analytics",icon:"▥"},{id:"settings",label:"Settings",icon:"⚙"}];
-    let activePage="overview",selectedKitchenId="K-1024",maintenanceMode=false;
-    let kitchenRequests=[{id:"K-1024",kitchenName:"Annapurna Home Kitchen",owner:"Priya Singh",phone:"+91 98765 43210",email:"priya@hapycure.com",city:"Patna",address:"Boring Road, Patna",foodType:"Pure Veg",meals:"Lunch, Dinner",timing:"11:00 AM - 9:00 PM",price:"₹90 - ₹140",documents:"FSSAI Applied",status:"Pending"},{id:"K-1023",kitchenName:"Maa Tiffin Service",owner:"Neha Kumari",phone:"+91 91234 56780",email:"neha@hapycure.com",city:"Siwan",address:"Station Road, Siwan",foodType:"Veg + Egg",meals:"Breakfast, Lunch",timing:"8:00 AM - 2:00 PM",price:"₹70 - ₹120",documents:"Aadhaar Verified",status:"Pending"},{id:"K-1022",kitchenName:"Healthy Bowl Kitchen",owner:"Rahul Verma",phone:"+91 99887 76655",email:"rahul@hapycure.com",city:"Patna",address:"Kankarbagh, Patna",foodType:"Veg + Non-Veg",meals:"Lunch, Dinner",timing:"12:00 PM - 10:00 PM",price:"₹120 - ₹180",documents:"FSSAI Verified",status:"Approved"},{id:"K-1021",kitchenName:"Ghar Ka Khana",owner:"Aarti Sharma",phone:"+91 90000 11122",email:"aarti@hapycure.com",city:"Muzaffarpur",address:"Mithanpura, Muzaffarpur",foodType:"Pure Veg",meals:"Lunch",timing:"10:30 AM - 3:00 PM",price:"₹80 - ₹110",documents:"Incomplete",status:"Rejected"}];
-    const orders=[{id:"#HC-5821",customer:"Aman Raj",kitchen:"Healthy Bowl Kitchen",meal:"Lunch Thali",status:"Delivered",total:"₹130",time:"24 min"},{id:"#HC-5820",customer:"Riya Sharma",kitchen:"Annapurna Home Kitchen",meal:"Veg Dinner Box",status:"Preparing",total:"₹110",time:"18 min"},{id:"#HC-5819",customer:"Sahil Khan",kitchen:"Maa Tiffin Service",meal:"Breakfast Box",status:"On the way",total:"₹90",time:"12 min"},{id:"#HC-5818",customer:"Nora Patel",kitchen:"Healthy Bowl Kitchen",meal:"Protein Meal",status:"Cancelled",total:"₹160",time:"—"}];
-    const customers=[{name:"Aman Raj",email:"aman@mail.com",joined:"Jan 2026",orders:22,spent:"₹2,860",status:"Active"},{name:"Riya Sharma",email:"riya@mail.com",joined:"Feb 2026",orders:14,spent:"₹1,720",status:"Active"},{name:"Sahil Khan",email:"sahil@mail.com",joined:"Mar 2026",orders:8,spent:"₹940",status:"Active"},{name:"Nora Patel",email:"nora@mail.com",joined:"Apr 2026",orders:3,spent:"₹360",status:"Suspended"}];
-    const main=document.getElementById("main"),nav=document.getElementById("nav"),sidebar=document.getElementById("sidebar"),sidebarToggle=document.getElementById("sidebarToggle"),toggleIcon=document.getElementById("toggleIcon");
-    function statusClass(s){return s.toLowerCase().replaceAll(" ","")}function badge(s){return `<span class="badge ${statusClass(s)}">${s}</span>`}function count(s){return kitchenRequests.filter(i=>i.status===s).length}function stat(label,value,sub,type=""){return `<div class="stat-card"><div class="stat-label">${label}</div><div class="stat-value">${value}</div>${sub?`<div class="stat-sub ${type}">${sub}</div>`:""}</div>`}function money(v){return Number(String(v).replace(/[^0-9]/g,""))}function bar(label,value,max,color="#7f1d1d"){const n=typeof value==="number"?value:money(value),w=Math.min(n/max*100,100);return `<div class="bar-item"><div class="bar-top"><span>${label}</span><span class="bar-value">${value}</span></div><div class="bar-track"><div class="bar-fill" style="width:${w}%;background:${color}"></div></div></div>`}function info(label,value){return `<div class="info-row"><span class="info-label">${label}</span><span class="info-value">${value}</span></div>`}
-    function renderNav(){nav.innerHTML=NAV.map(i=>`<button class="nav-btn ${activePage===i.id?"active":""}" data-page="${i.id}"><span class="nav-icon">${i.icon}</span><span class="nav-label">${i.label}</span></button>`).join("")}
-    function renderOverview(){main.innerHTML=`<h1 class="page-title">Good morning</h1><p class="page-subtitle">Here's what's happening with HapyCure today.</p><div class="stats-grid">${stat("Pending Kitchens",count("Pending"),"Needs review","warning")}${stat("Approved Kitchens",count("Approved"),"Ready to accept orders")}${stat("Rejected Requests",count("Rejected"),"Incomplete or invalid","danger")}${stat("Orders Today","124","↑ 9% from yesterday")}</div><div class="card"><div class="card-title">Latest Kitchen Requests</div><div class="table-wrap"><table><thead><tr><th>Kitchen</th><th>Owner</th><th>City</th><th>Food Type</th><th>Status</th><th>Action</th></tr></thead><tbody>${kitchenRequests.map(i=>`<tr><td class="strong">${i.kitchenName}</td><td>${i.owner}</td><td>${i.city}</td><td>${i.foodType}</td><td>${badge(i.status)}</td><td><button class="btn" data-review="${i.id}">Review</button></td></tr>`).join("")}</tbody></table></div></div><div class="split"><div class="split-card"><div class="card-title">Active Kitchens</div>${kitchenRequests.filter(i=>i.status==="Approved").map(i=>`<div class="list-row"><span>${i.kitchenName}</span><strong>${i.city}</strong></div>`).join("")||`<p style="font-size:14px;color:#9ca3af">No approved kitchens yet.</p>`}</div><div class="split-card"><div class="card-title">Recent Orders</div>${orders.map(i=>`<div class="list-row"><span>${i.id}</span><span><strong>${i.total}</strong> ${badge(i.status)}</span></div>`).join("")}</div></div>`}
-    function renderRequests(q=""){const filtered=kitchenRequests.filter(i=>{const s=q.toLowerCase();return i.kitchenName.toLowerCase().includes(s)||i.owner.toLowerCase().includes(s)||i.city.toLowerCase().includes(s)||i.id.toLowerCase().includes(s)}),k=kitchenRequests.find(i=>i.id===selectedKitchenId)||kitchenRequests[0];main.innerHTML=`<h1 class="page-title" style="margin-bottom:20px">Kitchen Requests</h1><div class="requests-layout"><div class="requests-table"><div class="search-row"><input class="search-input" id="requestSearch" value="${q}" placeholder="Search by kitchen, owner, city, ID..."></div><div class="table-card"><div class="table-wrap"><table><thead><tr><th>ID</th><th>Kitchen</th><th>Owner</th><th>City</th><th>Status</th><th>Action</th></tr></thead><tbody>${filtered.map(i=>`<tr data-select="${i.id}" style="cursor:pointer"><td class="strong">${i.id}</td><td class="strong">${i.kitchenName}</td><td>${i.owner}</td><td>${i.city}</td><td>${badge(i.status)}</td><td>View</td></tr>`).join("")}</tbody></table></div></div></div><div class="details-panel"><div class="details-head"><div><h2 class="details-title">${k.kitchenName}</h2><p class="details-id">${k.id}</p></div>${badge(k.status)}</div>${info("Owner",k.owner)}${info("Phone",k.phone)}${info("Email",k.email)}${info("City",k.city)}${info("Address",k.address)}${info("Food Type",k.foodType)}${info("Meals",k.meals)}${info("Timing",k.timing)}${info("Price Range",k.price)}${info("Documents",k.documents)}<div class="action-row"><button class="btn btn-green" data-approve="${k.id}">Approve</button><button class="btn btn-red" data-reject="${k.id}">Reject</button></div></div></div>`;const inp=document.getElementById("requestSearch");inp.addEventListener("input",function(){renderRequests(this.value)});inp.focus();inp.setSelectionRange(inp.value.length,inp.value.length)}
-    function renderKitchens(){const approved=kitchenRequests.filter(i=>i.status==="Approved");main.innerHTML=`<h1 class="page-title" style="margin-bottom:20px">Approved Kitchens</h1><div class="table-card"><div class="table-wrap"><table><thead><tr><th>Kitchen</th><th>Owner</th><th>City</th><th>Food Type</th><th>Meals</th><th>Price</th><th>Status</th></tr></thead><tbody>${approved.map(i=>`<tr><td class="strong">${i.kitchenName}</td><td>${i.owner}</td><td>${i.city}</td><td>${i.foodType}</td><td>${i.meals}</td><td class="strong">${i.price}</td><td>${badge(i.status)}</td></tr>`).join("")}</tbody></table></div></div>`}
-    function renderOrders(){main.innerHTML=`<h1 class="page-title" style="margin-bottom:20px">Orders Management</h1><div class="table-card"><div class="table-wrap"><table><thead><tr><th>Order</th><th>Customer</th><th>Kitchen</th><th>Meal</th><th>Status</th><th>Total</th><th>Time</th></tr></thead><tbody>${orders.map(i=>`<tr><td class="strong">${i.id}</td><td>${i.customer}</td><td>${i.kitchen}</td><td>${i.meal}</td><td>${badge(i.status)}</td><td class="strong">${i.total}</td><td>${i.time}</td></tr>`).join("")}</tbody></table></div></div>`}
-    function renderCustomers(){main.innerHTML=`<h1 class="page-title" style="margin-bottom:20px">Customers</h1><div class="stats-grid">${stat("Total Customers","1,248","↑ 6% this month")}${stat("Active This Week","342","ordering users")}${stat("Avg. Order Value","₹124","↑ ₹9 vs last week")}</div><div class="table-card"><div class="table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Orders</th><th>Spent</th><th>Status</th></tr></thead><tbody>${customers.map(i=>`<tr><td class="strong">${i.name}</td><td>${i.email}</td><td>${i.joined}</td><td>${i.orders}</td><td class="strong">${i.spent}</td><td>${badge(i.status)}</td></tr>`).join("")}</tbody></table></div></div>`}
-    function renderAnalytics(){main.innerHTML=`<h1 class="page-title" style="margin-bottom:20px">Analytics & Revenue</h1><div class="stats-grid">${stat("Revenue This Month","₹84,320","↑ 14% vs last month")}${stat("Orders This Month","682","↑ 9% vs last month")}${stat("Avg. Meal Price","₹118","stable")}${stat("Repeat Customers","61%","↑ 3% vs last month")}</div><div class="split"><div class="split-card"><div class="card-title">Revenue by Day</div>${bar("Mon","₹9,200",20000)}${bar("Tue","₹11,400",20000)}${bar("Wed","₹8,700",20000)}${bar("Thu","₹13,100",20000)}${bar("Fri","₹15,800",20000)}${bar("Sat","₹18,200",20000)}${bar("Sun","₹7,900",20000)}</div><div class="split-card"><div class="card-title">Kitchen Request Status</div>${bar("Pending",count("Pending"),10,"#b45309")}${bar("Approved",count("Approved"),10,"#166534")}${bar("Rejected",count("Rejected"),10,"#7f1d1d")}</div></div>`}
-    function renderSettings(){main.innerHTML=`<div class="form"><h1 class="page-title" style="margin-bottom:24px">Settings</h1><div class="form-group"><label class="form-label">App Name</label><input class="form-input" value="HapyCure"></div><div class="form-group"><label class="form-label">Support Email</label><input class="form-input" value="support@hapycure.com"></div><div class="form-group"><label class="form-label">Primary City</label><input class="form-input" value="Patna"></div><div class="switch-row"><div class="switch ${maintenanceMode?"active":""}" id="maintenanceSwitch"><div class="switch-dot"></div></div><span style="font-size:14px;font-weight:500">Maintenance Mode</span>${maintenanceMode?badge("Active"):""}</div><button class="btn btn-primary">Save Changes</button></div>`}
-    function renderPage(){renderNav();if(activePage==="overview")renderOverview();if(activePage==="requests")renderRequests();if(activePage==="kitchens")renderKitchens();if(activePage==="orders")renderOrders();if(activePage==="customers")renderCustomers();if(activePage==="analytics")renderAnalytics();if(activePage==="settings")renderSettings()}
-    function approve(id){kitchenRequests=kitchenRequests.map(i=>i.id===id?{...i,status:"Approved"}:i);selectedKitchenId=id;renderRequests()}function reject(id){kitchenRequests=kitchenRequests.map(i=>i.id===id?{...i,status:"Rejected"}:i);selectedKitchenId=id;renderRequests()}
-    nav.addEventListener("click",e=>{const b=e.target.closest("[data-page]");if(!b)return;activePage=b.dataset.page;renderPage()});sidebarToggle.addEventListener("click",()=>{sidebar.classList.toggle("collapsed");const c=sidebar.classList.contains("collapsed");toggleIcon.textContent=c?"▸":"◂";sidebarToggle.querySelector(".toggle-text").textContent=c?" Open":" Collapse"});document.addEventListener("click",e=>{const review=e.target.closest("[data-review]"),row=e.target.closest("[data-select]"),ap=e.target.closest("[data-approve]"),rj=e.target.closest("[data-reject]"),sw=e.target.closest("#maintenanceSwitch");if(review){selectedKitchenId=review.dataset.review;activePage="requests";renderPage()}if(row){selectedKitchenId=row.dataset.select;renderRequests()}if(ap)approve(ap.dataset.approve);if(rj)reject(rj.dataset.reject);if(sw){maintenanceMode=!maintenanceMode;renderSettings()}});
+    const NAV = [
+      { id: "overview", label: "Dashboard" },
+      { id: "requests", label: "Kitchen Requests" },
+      { id: "kitchens", label: "Approved Kitchens" },
+      { id: "orders", label: "Orders" },
+      { id: "customers", label: "Customers" },
+      { id: "analytics", label: "Analytics" },
+      { id: "settings", label: "Settings" }
+    ];
+
+    let activePage = "overview";
+    let selectedKitchenId = "K-1024";
+    let maintenanceMode = false;
+
+    let kitchenRequests = [
+      { id: "K-1024", kitchenName: "Annapurna Home Kitchen", owner: "Priya Singh", phone: "+91 98765 43210", email: "priya@hapycure.com", city: "Patna", address: "Boring Road, Patna", foodType: "Pure Veg", meals: "Lunch, Dinner", timing: "11:00 AM - 9:00 PM", price: "₹90 - ₹140", documents: "FSSAI Applied", status: "Pending" },
+      { id: "K-1023", kitchenName: "Maa Tiffin Service", owner: "Neha Kumari", phone: "+91 91234 56780", email: "neha@hapycure.com", city: "Siwan", address: "Station Road, Siwan", foodType: "Veg + Egg", meals: "Breakfast, Lunch", timing: "8:00 AM - 2:00 PM", price: "₹70 - ₹120", documents: "Aadhaar Verified", status: "Pending" },
+      { id: "K-1022", kitchenName: "Healthy Bowl Kitchen", owner: "Rahul Verma", phone: "+91 99887 76655", email: "rahul@hapycure.com", city: "Patna", address: "Kankarbagh, Patna", foodType: "Veg + Non-Veg", meals: "Lunch, Dinner", timing: "12:00 PM - 10:00 PM", price: "₹120 - ₹180", documents: "FSSAI Verified", status: "Approved" },
+      { id: "K-1021", kitchenName: "Ghar Ka Khana", owner: "Aarti Sharma", phone: "+91 90000 11122", email: "aarti@hapycure.com", city: "Muzaffarpur", address: "Mithanpura, Muzaffarpur", foodType: "Pure Veg", meals: "Lunch", timing: "10:30 AM - 3:00 PM", price: "₹80 - ₹110", documents: "Incomplete", status: "Rejected" }
+    ];
+
+    const orders = [
+      { id: "#HC-5821", customer: "Aman Raj", kitchen: "Healthy Bowl Kitchen", meal: "Lunch Thali", status: "Delivered", total: "₹130", time: "24 min" },
+      { id: "#HC-5820", customer: "Riya Sharma", kitchen: "Annapurna Home Kitchen", meal: "Veg Dinner Box", status: "Preparing", total: "₹110", time: "18 min" },
+      { id: "#HC-5819", customer: "Sahil Khan", kitchen: "Maa Tiffin Service", meal: "Breakfast Box", status: "On the way", total: "₹90", time: "12 min" },
+      { id: "#HC-5818", customer: "Nora Patel", kitchen: "Healthy Bowl Kitchen", meal: "Protein Meal", status: "Cancelled", total: "₹160", time: "—" }
+    ];
+
+    const customers = [
+      { name: "Aman Raj", email: "aman@mail.com", joined: "Jan 2026", orders: 22, spent: "₹2,860", status: "Active" },
+      { name: "Riya Sharma", email: "riya@mail.com", joined: "Feb 2026", orders: 14, spent: "₹1,720", status: "Active" },
+      { name: "Sahil Khan", email: "sahil@mail.com", joined: "Mar 2026", orders: 8, spent: "₹940", status: "Active" },
+      { name: "Nora Patel", email: "nora@mail.com", joined: "Apr 2026", orders: 3, spent: "₹360", status: "Suspended" }
+    ];
+
+    const main = document.getElementById("main");
+    const nav = document.getElementById("nav");
+
+    function statusClass(status) {
+      return status.toLowerCase().replaceAll(" ", "");
+    }
+
+    function badge(status) {
+      return `<span class="badge ${statusClass(status)}">${status}</span>`;
+    }
+
+    function count(status) {
+      return kitchenRequests.filter(item => item.status === status).length;
+    }
+
+    function stat(label, value, sub, type = "") {
+      return `
+        <div class="stat-card">
+          <div class="stat-label">${label}</div>
+          <div class="stat-value">${value}</div>
+          ${sub ? `<div class="stat-sub ${type}">${sub}</div>` : ""}
+        </div>
+      `;
+    }
+
+    function money(value) {
+      return Number(String(value).replace(/[^0-9]/g, ""));
+    }
+
+    function bar(label, value, max, color = "#7f1d1d") {
+      const number = typeof value === "number" ? value : money(value);
+      const width = Math.min((number / max) * 100, 100);
+
+      return `
+        <div class="bar-item">
+          <div class="bar-top">
+            <span>${label}</span>
+            <span class="bar-value">${value}</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width:${width}%;background:${color}"></div>
+          </div>
+        </div>
+      `;
+    }
+
+    function info(label, value) {
+      return `
+        <div class="info-row">
+          <span class="info-label">${label}</span>
+          <span class="info-value">${value}</span>
+        </div>
+      `;
+    }
+
+    function renderNav() {
+      nav.innerHTML = NAV.map(item => `
+        <button class="nav-btn ${activePage === item.id ? "active" : ""}" data-page="${item.id}">
+          ${item.label}
+        </button>
+      `).join("");
+    }
+
+    function renderOverview() {
+      main.innerHTML = `
+        <h1 class="page-title">Good morning</h1>
+        <p class="page-subtitle">Here's what's happening with HapyCure today.</p>
+
+        <div class="stats-grid">
+          ${stat("Pending Kitchens", count("Pending"), "Needs review", "warning")}
+          ${stat("Approved Kitchens", count("Approved"), "Ready to accept orders")}
+          ${stat("Rejected Requests", count("Rejected"), "Incomplete or invalid", "danger")}
+          ${stat("Orders Today", "124", "↑ 9% from yesterday")}
+        </div>
+
+        <div class="card">
+          <div class="card-title">Latest Kitchen Requests</div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Kitchen</th>
+                  <th>Owner</th>
+                  <th>City</th>
+                  <th>Food Type</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${kitchenRequests.map(item => `
+                  <tr>
+                    <td class="strong">${item.kitchenName}</td>
+                    <td>${item.owner}</td>
+                    <td>${item.city}</td>
+                    <td>${item.foodType}</td>
+                    <td>${badge(item.status)}</td>
+                    <td><button class="btn" data-review="${item.id}">Review</button></td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="split-card">
+            <div class="card-title">Active Kitchens</div>
+            ${kitchenRequests.filter(item => item.status === "Approved").map(item => `
+              <div class="list-row">
+                <span>${item.kitchenName}</span>
+                <strong>${item.city}</strong>
+              </div>
+            `).join("") || `<p style="font-size:14px;color:#9ca3af">No approved kitchens yet.</p>`}
+          </div>
+
+          <div class="split-card">
+            <div class="card-title">Recent Orders</div>
+            ${orders.map(item => `
+              <div class="list-row">
+                <span>${item.id}</span>
+                <span><strong>${item.total}</strong> ${badge(item.status)}</span>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderRequests(query = "") {
+      const filtered = kitchenRequests.filter(item => {
+        const q = query.toLowerCase();
+        return item.kitchenName.toLowerCase().includes(q) || item.owner.toLowerCase().includes(q) || item.city.toLowerCase().includes(q) || item.id.toLowerCase().includes(q);
+      });
+
+      const selected = kitchenRequests.find(item => item.id === selectedKitchenId) || kitchenRequests[0];
+
+      main.innerHTML = `
+        <h1 class="page-title" style="margin-bottom:20px">Kitchen Requests</h1>
+        <div class="requests-layout">
+          <div class="requests-table">
+            <div class="search-row">
+              <input class="search-input" id="requestSearch" value="${query}" placeholder="Search by kitchen, owner, city, ID...">
+            </div>
+
+            <div class="table-card">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Kitchen</th>
+                      <th>Owner</th>
+                      <th>City</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${filtered.map(item => `
+                      <tr data-select="${item.id}" style="cursor:pointer">
+                        <td class="strong">${item.id}</td>
+                        <td class="strong">${item.kitchenName}</td>
+                        <td>${item.owner}</td>
+                        <td>${item.city}</td>
+                        <td>${badge(item.status)}</td>
+                        <td>View</td>
+                      </tr>
+                    `).join("")}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="details-panel">
+            <div class="details-head">
+              <div>
+                <h2 class="details-title">${selected.kitchenName}</h2>
+                <p class="details-id">${selected.id}</p>
+              </div>
+              ${badge(selected.status)}
+            </div>
+
+            ${info("Owner", selected.owner)}
+            ${info("Phone", selected.phone)}
+            ${info("Email", selected.email)}
+            ${info("City", selected.city)}
+            ${info("Address", selected.address)}
+            ${info("Food Type", selected.foodType)}
+            ${info("Meals", selected.meals)}
+            ${info("Timing", selected.timing)}
+            ${info("Price Range", selected.price)}
+            ${info("Documents", selected.documents)}
+
+            <div class="action-row">
+              <button class="btn btn-green" data-approve="${selected.id}">Approve</button>
+              <button class="btn btn-red" data-reject="${selected.id}">Reject</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const input = document.getElementById("requestSearch");
+      input.addEventListener("input", function () {
+        renderRequests(this.value);
+      });
+      input.focus();
+      input.setSelectionRange(input.value.length, input.value.length);
+    }
+
+    function renderKitchens() {
+      const approved = kitchenRequests.filter(item => item.status === "Approved");
+      main.innerHTML = `
+        <h1 class="page-title" style="margin-bottom:20px">Approved Kitchens</h1>
+        <div class="table-card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Kitchen</th>
+                  <th>Owner</th>
+                  <th>City</th>
+                  <th>Food Type</th>
+                  <th>Meals</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${approved.map(item => `
+                  <tr>
+                    <td class="strong">${item.kitchenName}</td>
+                    <td>${item.owner}</td>
+                    <td>${item.city}</td>
+                    <td>${item.foodType}</td>
+                    <td>${item.meals}</td>
+                    <td class="strong">${item.price}</td>
+                    <td>${badge(item.status)}</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderOrders() {
+      main.innerHTML = `
+        <h1 class="page-title" style="margin-bottom:20px">Orders Management</h1>
+        <div class="table-card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Customer</th>
+                  <th>Kitchen</th>
+                  <th>Meal</th>
+                  <th>Status</th>
+                  <th>Total</th>
+                  <th>Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${orders.map(item => `
+                  <tr>
+                    <td class="strong">${item.id}</td>
+                    <td>${item.customer}</td>
+                    <td>${item.kitchen}</td>
+                    <td>${item.meal}</td>
+                    <td>${badge(item.status)}</td>
+                    <td class="strong">${item.total}</td>
+                    <td>${item.time}</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderCustomers() {
+      main.innerHTML = `
+        <h1 class="page-title" style="margin-bottom:20px">Customers</h1>
+        <div class="stats-grid">
+          ${stat("Total Customers", "1,248", "↑ 6% this month")}
+          ${stat("Active This Week", "342", "ordering users")}
+          ${stat("Avg. Order Value", "₹124", "↑ ₹9 vs last week")}
+        </div>
+
+        <div class="table-card">
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Joined</th>
+                  <th>Orders</th>
+                  <th>Spent</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${customers.map(item => `
+                  <tr>
+                    <td class="strong">${item.name}</td>
+                    <td>${item.email}</td>
+                    <td>${item.joined}</td>
+                    <td>${item.orders}</td>
+                    <td class="strong">${item.spent}</td>
+                    <td>${badge(item.status)}</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAnalytics() {
+      main.innerHTML = `
+        <h1 class="page-title" style="margin-bottom:20px">Analytics & Revenue</h1>
+        <div class="stats-grid">
+          ${stat("Revenue This Month", "₹84,320", "↑ 14% vs last month")}
+          ${stat("Orders This Month", "682", "↑ 9% vs last month")}
+          ${stat("Avg. Meal Price", "₹118", "stable")}
+          ${stat("Repeat Customers", "61%", "↑ 3% vs last month")}
+        </div>
+
+        <div class="split">
+          <div class="split-card">
+            <div class="card-title">Revenue by Day</div>
+            ${bar("Mon", "₹9,200", 20000)}
+            ${bar("Tue", "₹11,400", 20000)}
+            ${bar("Wed", "₹8,700", 20000)}
+            ${bar("Thu", "₹13,100", 20000)}
+            ${bar("Fri", "₹15,800", 20000)}
+            ${bar("Sat", "₹18,200", 20000)}
+            ${bar("Sun", "₹7,900", 20000)}
+          </div>
+
+          <div class="split-card">
+            <div class="card-title">Kitchen Request Status</div>
+            ${bar("Pending", count("Pending"), 10, "#b45309")}
+            ${bar("Approved", count("Approved"), 10, "#166534")}
+            ${bar("Rejected", count("Rejected"), 10, "#7f1d1d")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSettings() {
+      main.innerHTML = `
+        <div class="form">
+          <h1 class="page-title" style="margin-bottom:24px">Settings</h1>
+
+          <div class="form-group">
+            <label class="form-label">App Name</label>
+            <input class="form-input" value="HapyCure">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Support Email</label>
+            <input class="form-input" value="support@hapycure.com">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Primary City</label>
+            <input class="form-input" value="Patna">
+          </div>
+
+          <div class="switch-row">
+            <div class="switch ${maintenanceMode ? "active" : ""}" id="maintenanceSwitch">
+              <div class="switch-dot"></div>
+            </div>
+            <span style="font-size:14px;font-weight:500">Maintenance Mode</span>
+            ${maintenanceMode ? badge("Active") : ""}
+          </div>
+
+          <button class="btn btn-primary">Save Changes</button>
+        </div>
+      `;
+    }
+
+    function renderPage() {
+      renderNav();
+
+      if (activePage === "overview") renderOverview();
+      if (activePage === "requests") renderRequests();
+      if (activePage === "kitchens") renderKitchens();
+      if (activePage === "orders") renderOrders();
+      if (activePage === "customers") renderCustomers();
+      if (activePage === "analytics") renderAnalytics();
+      if (activePage === "settings") renderSettings();
+    }
+
+    function approve(id) {
+      kitchenRequests = kitchenRequests.map(item => item.id === id ? { ...item, status: "Approved" } : item);
+      selectedKitchenId = id;
+      renderRequests();
+    }
+
+    function reject(id) {
+      kitchenRequests = kitchenRequests.map(item => item.id === id ? { ...item, status: "Rejected" } : item);
+      selectedKitchenId = id;
+      renderRequests();
+    }
+
+    nav.addEventListener("click", event => {
+      const button = event.target.closest("[data-page]");
+      if (!button) return;
+
+      activePage = button.dataset.page;
+      renderPage();
+    });
+
+    document.addEventListener("click", event => {
+      const review = event.target.closest("[data-review]");
+      const row = event.target.closest("[data-select]");
+      const approveButton = event.target.closest("[data-approve]");
+      const rejectButton = event.target.closest("[data-reject]");
+      const switchButton = event.target.closest("#maintenanceSwitch");
+
+      if (review) {
+        selectedKitchenId = review.dataset.review;
+        activePage = "requests";
+        renderPage();
+      }
+
+      if (row) {
+        selectedKitchenId = row.dataset.select;
+        renderRequests();
+      }
+
+      if (approveButton) approve(approveButton.dataset.approve);
+      if (rejectButton) reject(rejectButton.dataset.reject);
+
+      if (switchButton) {
+        maintenanceMode = !maintenanceMode;
+        renderSettings();
+      }
+    });
+
     renderPage();
   </script>
 </body>
