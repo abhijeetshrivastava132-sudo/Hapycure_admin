@@ -1,0 +1,85 @@
+@media (max-width: 760px) {
+  .dashboard {
+    flex-direction: row;
+    height: 100vh;
+  }
+
+  .sidebar {
+    width: 96px;
+    height: 100vh;
+    border-right: 1px solid #eee;
+    border-bottom: none;
+  }
+
+  .brand {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 8px 12px;
+    text-align: left;
+  }
+
+  .brand-logo {
+    width: 32px;
+    height: 32px;
+  }
+
+  .brand-name {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+
+  .nav {
+    display: block;
+    padding: 10px 7px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .nav-btn {
+    width: 100%;
+    flex: none;
+    margin-bottom: 6px;
+    padding: 10px 8px;
+    border: none;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .nav-icon {
+    font-size: 17px;
+  }
+
+  .nav-label {
+    font-size: 10.5px;
+    line-height: 1.1;
+  }
+
+  .main {
+    flex: 1;
+    padding: 18px 12px;
+    overflow: auto;
+  }
+
+  .page-title {
+    font-size: 20px;
+  }
+
+  .stat-card {
+    min-width: 140px;
+    padding: 18px;
+  }
+
+  .requests-table,
+  .details-panel {
+    min-width: 100%;
+  }
+
+  .details-panel {
+    position: static;
+  }
+
+  table {
+    min-width: 720px;
+  }
+}
