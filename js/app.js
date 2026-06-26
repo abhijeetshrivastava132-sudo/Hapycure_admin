@@ -1,10 +1,13 @@
 const API_URL = "https://hapycure-register.onrender.com";
 
 const NAV_ITEMS = [
-  { id: "dashboard", label: "Dashboard" },
-  { id: "requests", label: "Requests" },
-  { id: "approved", label: "Approved" },
-  { id: "rejected", label: "Rejected" }
+  { id: "dashboard", label: "Dashboard", icon: "▦" },
+  { id: "requests", label: "Requests", icon: "◫" },
+  { id: "kitchens", label: "Kitchens", icon: "⌂" },
+  { id: "orders", label: "Orders", icon: "▤" },
+  { id: "customers", label: "Customers", icon: "○" },
+  { id: "analytics", label: "Analytics", icon: "▥" },
+  { id: "settings", label: "Settings", icon: "⚙" }
 ];
 
 let activePage = "dashboard";
@@ -16,27 +19,22 @@ let messageType = "success";
 const nav = document.getElementById("nav");
 const main = document.getElementById("main");
 
-function getStatusClass(status) {
+function safe(value) {
+  return String(value || "—");
+}
+
+function statusClass(status) {
   return String(status || "Pending").toLowerCase();
 }
 
-function getStatusBadge(status) {
+function badge(status) {
   const finalStatus = status || "Pending";
-  return `<span class="badge ${getStatusClass(finalStatus)}">${finalStatus}</span>`;
-}
-
-function showMessage(text, type) {
-  message = text;
-  messageType = type || "success";
-  renderPage(false);
-}
-
-function clearMessage() {
-  message = "";
+  return `<span class="badge ${statusClass(finalStatus)}">${finalStatus}</span>`;
 }
 
 function formatDate(value) {
   if (!value) return "—";
+
   return new Date(value).toLocaleString("en-IN", {
     day: "2-digit",
     month: "short",
@@ -46,42 +44,21 @@ function formatDate(value) {
   });
 }
 
-function statCard(label, value) {
-  return `
-    <div class="stat-card">
-      <div class="stat-label">${label}</div>
-      <div class="stat-value">${value}</div>
-    </div>
-  `;
+function showMessage(text, type = "success") {
+  message = text;
+  messageType = type;
+  renderPage(false);
 }
 
-function infoRow(label, value) {
-  return `
-    <div class="info-row">
-      <span class="info-label">${label}</span>
-      <span class="info-value">${value || "—"}</span>
-    </div>
-  `;
-}
-
-function emptyState(title, text) {
-  return `
-    <div class="empty-state">
-      <div class="empty-title">${title}</div>
-      <div>${text}</div>
-    </div>
-  `;
-}
-
-function getSelectedKitchen(list) {
-  if (!list.length) return null;
-  return list.find(item => item.id === selectedKitchenId) || list[0];
+function clearMessage() {
+  message = "";
 }
 
 function renderNav() {
   nav.innerHTML = NAV_ITEMS.map(item => `
     <button class="nav-btn ${activePage === item.id ? "active" : ""}" data-page="${item.id}">
-      ${item.label}
+      <span class="nav-icon">${item.icon}</span>
+      <span class="nav-label">${item.label}</span>
     </button>
   `).join("");
 
@@ -113,93 +90,89 @@ async function loadKitchens() {
   }
 }
 
-function getFilteredKitchens() {
-  if (activePage === "approved") {
-    return kitchens.filter(item => item.status === "Approved");
-  }
-
-  if (activePage === "rejected") {
-    return kitchens.filter(item => item.status === "Rejected");
-  }
-
-  if (activePage === "requests") {
-    return kitchens.filter(item => item.status === "Pending");
-  }
-
-  return kitchens;
-}
-
-function renderTopbar(title, subtitle) {
+function statCard(label, value, text) {
   return `
-    <div class="topbar">
-      <div>
-        <h1 class="page-title">${title}</h1>
-        <p class="page-subtitle">${subtitle}</p>
-      </div>
-      <div class="api-pill">Backend: ${API_URL}</div>
+    <div class="stat-card">
+      <div class="stat-label">${label}</div>
+      <div class="stat-value">${value}</div>
+      <div class="stat-text">${text}</div>
     </div>
   `;
 }
 
 function renderStats() {
-  const total = kitchens.length;
   const pending = kitchens.filter(item => item.status === "Pending").length;
   const approved = kitchens.filter(item => item.status === "Approved").length;
   const rejected = kitchens.filter(item => item.status === "Rejected").length;
 
   return `
     <div class="stats-grid">
-      ${statCard("Total", total)}
-      ${statCard("Pending", pending)}
-      ${statCard("Approved", approved)}
-      ${statCard("Rejected", rejected)}
+      ${statCard("Pending Requests", pending, "Waiting for review")}
+      ${statCard("Approved Kitchens", approved, "Ready kitchens")}
+      ${statCard("Rejected Requests", rejected, "Rejected applications")}
+      ${statCard("Orders Today", 0, "Total orders")}
     </div>
   `;
 }
 
-function renderTable(list) {
+function getFilteredKitchens() {
+  if (activePage === "requests") {
+    return kitchens.filter(item => item.status === "Pending");
+  }
+
+  if (activePage === "kitchens") {
+    return kitchens.filter(item => item.status === "Approved");
+  }
+
+  return kitchens;
+}
+
+function renderRequestList(list) {
   if (!list.length) {
-    return emptyState("No requests found", "Kitchen requests yaha show hongi jab user register karega.");
+    return `
+      <div class="empty-state">
+        No kitchen requests<br />yet
+      </div>
+    `;
   }
 
   return `
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Kitchen</th>
-            <th>Owner</th>
-            <th>Phone</th>
-            <th>City</th>
-            <th>Status</th>
-            <th>Created</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${list.map(item => `
-            <tr data-id="${item.id}">
-              <td class="strong">${item.kitchenName || "—"}</td>
-              <td>${item.owner || "—"}</td>
-              <td>${item.phone || "—"}</td>
-              <td>${item.city || "—"}</td>
-              <td>${getStatusBadge(item.status)}</td>
-              <td>${formatDate(item.createdAt)}</td>
-            </tr>
-          `).join("")}
-        </tbody>
-      </table>
+    <div class="request-list">
+      ${list.map(item => `
+        <div class="request-card" data-id="${item.id}">
+          <div class="request-top">
+            <div>
+              <div class="request-name">${safe(item.kitchenName)}</div>
+              <div class="request-meta">
+                ${safe(item.owner)} · ${safe(item.phone)}<br />
+                ${safe(item.city)} · ${safe(item.foodType)}
+              </div>
+            </div>
+            ${badge(item.status)}
+          </div>
+        </div>
+      `).join("")}
     </div>
   `;
 }
 
-function renderFiles(files) {
+function infoRow(label, value) {
+  return `
+    <div class="info-row">
+      <span class="info-label">${label}</span>
+      <span class="info-value">${value || "—"}</span>
+    </div>
+  `;
+}
+
+function renderDocuments(files) {
   if (!files || !files.length) {
     return `<div class="food-meta">No documents uploaded.</div>`;
   }
 
   return files.map(file => `
     <div class="file-item">
-      <a class="file-link" href="${file.url}" target="_blank">${file.name || "Open document"}</a>
+      <a class="file-link" href="${file.url}" target="_blank">${safe(file.name)}</a>
     </div>
   `).join("");
 }
@@ -211,40 +184,39 @@ function renderFoodItems(items) {
 
   return items.map(item => `
     <div class="food-item">
-      <div class="food-name">${item.name || "Food Item"} — ₹${item.price || "—"}</div>
-      <div class="food-meta">${item.mealType || "—"} · ${item.category || "—"}</div>
-      <div class="food-meta">${item.description || "No description"}</div>
-      ${item.photo && item.photo.url ? `<img class="food-photo" src="${item.photo.url}" alt="${item.name || "Food photo"}" />` : ""}
+      <div class="food-name">${safe(item.name)} — ₹${safe(item.price)}</div>
+      <div class="food-meta">${safe(item.mealType)} · ${safe(item.category)}</div>
+      <div class="food-meta">${safe(item.description)}</div>
+      ${item.photo && item.photo.url ? `<img class="food-photo" src="${item.photo.url}" alt="Food photo" />` : ""}
     </div>
   `).join("");
 }
 
+function getSelectedKitchen(list) {
+  if (!list.length) return null;
+  return list.find(item => item.id === selectedKitchenId) || list[0];
+}
+
 function renderDetails(kitchen) {
-  if (!kitchen) {
-    return `
-      <aside class="details-panel">
-        ${emptyState("Select request", "Table me kisi request pe click karo.")}
-      </aside>
-    `;
-  }
+  if (!kitchen) return "";
 
   return `
-    <aside class="details-panel">
-      <h2 class="details-title">${kitchen.kitchenName || "Kitchen"}</h2>
-      <div class="details-id">Tracking ID: ${kitchen.id}</div>
+    <section class="details-panel show">
+      <h2 class="details-title">${safe(kitchen.kitchenName)}</h2>
+      <div class="details-id">Tracking ID: ${safe(kitchen.id)}</div>
 
-      ${infoRow("Status", getStatusBadge(kitchen.status))}
-      ${infoRow("Owner", kitchen.owner)}
-      ${infoRow("Phone", kitchen.phone)}
-      ${infoRow("Email", kitchen.email)}
-      ${infoRow("City", kitchen.city)}
-      ${infoRow("Food Type", kitchen.foodType)}
-      ${infoRow("Timing", `${kitchen.openingTime || "—"} - ${kitchen.closingTime || "—"}`)}
-      ${infoRow("Address", kitchen.address)}
+      ${infoRow("Status", badge(kitchen.status))}
+      ${infoRow("Owner", safe(kitchen.owner))}
+      ${infoRow("Phone", safe(kitchen.phone))}
+      ${infoRow("Email", safe(kitchen.email))}
+      ${infoRow("City", safe(kitchen.city))}
+      ${infoRow("Food Type", safe(kitchen.foodType))}
+      ${infoRow("Timing", `${safe(kitchen.openingTime)} - ${safe(kitchen.closingTime)}`)}
+      ${infoRow("Address", safe(kitchen.address))}
       ${infoRow("Created", formatDate(kitchen.createdAt))}
 
       <div class="section-title">Documents</div>
-      ${renderFiles(kitchen.documents)}
+      ${renderDocuments(kitchen.documents)}
 
       <div class="section-title">Food Menu</div>
       ${renderFoodItems(kitchen.foodItems)}
@@ -252,59 +224,102 @@ function renderDetails(kitchen) {
       ${kitchen.status === "Pending" ? `
         <div class="action-row">
           <button class="btn btn-green" onclick="approveKitchen('${kitchen.id}')">Approve</button>
-          <button class="btn btn-soft-red" onclick="rejectKitchen('${kitchen.id}')">Reject</button>
+          <button class="btn btn-soft" onclick="rejectKitchen('${kitchen.id}')">Reject</button>
         </div>
       ` : ""}
-    </aside>
+    </section>
   `;
 }
 
-function renderRequestsPage(title, subtitle) {
-  const list = getFilteredKitchens();
-  const selected = getSelectedKitchen(list);
+function pageTitle() {
+  if (activePage === "requests") {
+    return ["Requests", "Kitchen approval requests."];
+  }
 
-  return `
-    ${renderTopbar(title, subtitle)}
-    ${renderStats()}
-    ${message ? `<div class="message ${messageType}">${message}</div>` : ""}
-    <div class="toolbar">
-      <h2 class="card-title">Kitchen Requests</h2>
-      <button class="btn btn-red" onclick="refreshData()">Refresh</button>
-    </div>
-    <div class="layout">
-      <section>
-        ${renderTable(list)}
-      </section>
-      ${renderDetails(selected)}
-    </div>
-  `;
+  if (activePage === "kitchens") {
+    return ["Kitchens", "Approved kitchens."];
+  }
+
+  if (activePage === "orders") {
+    return ["Orders", "Orders overview."];
+  }
+
+  if (activePage === "customers") {
+    return ["Customers", "Customer overview."];
+  }
+
+  if (activePage === "analytics") {
+    return ["Analytics", "HapyCure admin analytics."];
+  }
+
+  if (activePage === "settings") {
+    return ["Settings", "Backend connected."];
+  }
+
+  return ["Dashboard", "HapyCure admin overview."];
 }
 
 function renderPage(shouldLoad = true) {
   renderNav();
 
-  let title = "Dashboard";
-  let subtitle = "All kitchen registration requests.";
+  const [title, subtitle] = pageTitle();
+  const list = getFilteredKitchens();
+  const selected = getSelectedKitchen(list);
 
-  if (activePage === "requests") {
-    title = "Pending Requests";
-    subtitle = "Approve or reject new kitchen requests.";
+  if (activePage === "dashboard") {
+    const latest = kitchens.slice().reverse().slice(0, 5);
+
+    main.innerHTML = `
+      <h1 class="page-title">${title}</h1>
+      <p class="page-subtitle">${subtitle}</p>
+
+      ${message ? `<div class="message ${messageType}">${message}</div>` : ""}
+
+      ${renderStats()}
+
+      <section class="card">
+        <h2 class="card-title">Latest Kitchen Requests</h2>
+        ${renderRequestList(latest)}
+      </section>
+
+      ${renderDetails(selected)}
+    `;
+  } else if (["requests", "kitchens"].includes(activePage)) {
+    main.innerHTML = `
+      <h1 class="page-title">${title}</h1>
+      <p class="page-subtitle">${subtitle}</p>
+
+      ${message ? `<div class="message ${messageType}">${message}</div>` : ""}
+
+      <section class="card">
+        <div class="request-top">
+          <h2 class="card-title">${title}</h2>
+          <button class="btn btn-red" onclick="refreshData()">Refresh</button>
+        </div>
+
+        ${renderRequestList(list)}
+      </section>
+
+      ${renderDetails(selected)}
+    `;
+  } else {
+    main.innerHTML = `
+      <h1 class="page-title">${title}</h1>
+      <p class="page-subtitle">${subtitle}</p>
+
+      ${renderStats()}
+
+      <section class="card">
+        <h2 class="card-title">${title}</h2>
+        <div class="empty-state">
+          This section will be added<br />later
+        </div>
+      </section>
+    `;
   }
 
-  if (activePage === "approved") {
-    title = "Approved Kitchens";
-    subtitle = "Kitchens accepted by admin.";
-  }
-
-  if (activePage === "rejected") {
-    title = "Rejected Kitchens";
-    subtitle = "Kitchens rejected by admin.";
-  }
-
-  main.innerHTML = renderRequestsPage(title, subtitle);
-
-  document.querySelectorAll("tbody tr[data-id]").forEach(row => {
-    row.addEventListener("click", function () {
+  document.querySelectorAll(".request-card").forEach(card => {
+    card.addEventListener("click", function () {
       selectedKitchenId = this.dataset.id;
       clearMessage();
       renderPage(false);
@@ -318,10 +333,12 @@ function renderPage(shouldLoad = true) {
 
 async function refreshData(showSuccess = true) {
   await loadKitchens();
+
   if (showSuccess) {
     message = "Requests refreshed.";
     messageType = "success";
   }
+
   renderPage(false);
 }
 
@@ -339,6 +356,7 @@ async function updateKitchenStatus(id, action) {
     }
 
     await loadKitchens();
+
     selectedKitchenId = id;
     showMessage(action === "approve" ? "Kitchen approved." : "Kitchen rejected.", "success");
   } catch (error) {
